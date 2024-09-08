@@ -1,4 +1,7 @@
+import 'package:bookly_clean/constants.dart';
 import 'package:bookly_clean/core/utils/api_service.dart';
+import 'package:hive/hive.dart';
+import '../../../../core/functions/save_box.dart';
 import '../../domain/entities/book_entity.dart';
 import '../models/book_model/book_model.dart';
 
@@ -18,9 +21,13 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     //     .map<BookEntity>((json) => BookModel.fromJson(json))
     //     .toList();
     List<BookEntity> books = getBooksList(data);
+
+    /// علشان اخزنها لوكال بقي
+    saveBoxData(books, kFeaturedBox);
     return books;
   }
 
+ 
   @override
   Future<List<BookEntity>> fetchNewestBooks() async {
     var data = await apiService.get(
