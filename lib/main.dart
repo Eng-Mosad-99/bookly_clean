@@ -6,9 +6,11 @@ import 'constants.dart';
 import 'core/router/app_router.dart';
 
 void main() async {
-  runApp(const BooklyClean());
+  await Hive.initFlutter();
   Hive.registerAdapter(BookEntityAdapter());
-  await Hive.openBox(kFeaturedBox);
+  await Hive.openBox<BookEntity>(kFeaturedBox);
+  await Hive.openBox<BookEntity>(kNewestBox);
+  runApp(const BooklyClean());
 }
 
 class BooklyClean extends StatelessWidget {
